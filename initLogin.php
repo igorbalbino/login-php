@@ -16,5 +16,14 @@ if (isset($_POST['login']) && !empty($login) && !empty($senha)) {
 	if (!!$status) {
 		$DBConnect->selectAllData();
 	}
+} else if (isset($_POST['cadastro']) && !empty($login) && !empty($senha)) {
+	$currentDate = new DateTime();
+	$_SESSION['valid'] = true;
+	$_SESSION['timestamp'] = $currentDate->format('Y-m-d H:i:s');
+	$_SESSION['username'] = $login;
+
+	$status = $DBConnect->initDBConnection();
+
+	$DBConnect->cadastrarUsuario($login, $senha);
 }
 ?>
